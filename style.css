@@ -1,0 +1,33 @@
+* {
+  font-size: 18px;
+}
+
+#buscador {
+  width: 100%;
+  font-size: 28px;
+}
+
+#respuestaCorrecta {
+  justify-content: center;
+  margin-top: 30px;
+  font-size: 28px;
+  width: 100%;
+}
+
+.correct-answer image {
+  width: 100%;
+}
+
+.correct-answer-box > * {
+  background-color: rgb(234, 234, 172);
+  font-size: 23px;
+}
+
+.voting-summary {
+  background-color: rgb(234, 234, 172);
+}
+
+img {
+  display: block;
+  width: 70%;
+}

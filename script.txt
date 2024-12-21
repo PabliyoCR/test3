@@ -1,0 +1,4 @@
+let data = Array.from(document.querySelectorAll('.card.exam-question-card')).map(q => q.innerHTML)
+const dataArr = new Set(data);
+let result = [...dataArr];
+result

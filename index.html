@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <script src="items.js"></script>
+  <script src="images.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.3/ScrollToPlugin.min.js"></script>
+  <style>
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div id="respuestaCorrecta"></div>
+    <div id="resp"></div>
+    <div>
+      <input id="buscador" type="text" />
+    </div>
+  </div>
+</body>
+
+<script>
+  items = items.map(element => element.toLowerCase())
+  let respuestaCorrecta = document.getElementById("respuestaCorrecta")
+  let resp = document.getElementById("resp")
+  let buscador = document.getElementById("buscador")
+  let found = false
+  buscador.addEventListener("keyup", e => {
+    let str = e.target.value
+    let filtro = items.filter(element => element.includes(str))
+    if (filtro.length > 1) {
+      respuestaCorrecta.innerHTML = filtro.length + ">1"
+      resp.innerHTML = ""
+    } else if (filtro.length == 1) {
+      console.log("dd", filtro[0])
+      respuestaCorrecta.innerHTML = filtro[0]
+      let index = items.indexOf(filtro[0]);
+      resp.innerHTML = images[index]
+      if (!found) {
+        setTimeout(() => {
+          let box = document.querySelector(".correct-answer-box")
+          if (box) {
+            box.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+          found = true
+        }
+          , 2000)
+      }
+    } else {
+      respuestaCorrecta.innerHTML = "0"
+      resp.innerHTML = ""
+    }
+  })
+
+  function doubleControlEvent() {
+    if (event.key === "Control") {
+      timesCtrlClicked++
+      if (timesCtrlClicked >= 2) {
+        console.log("reset")
+        buscador.value = ""
+        buscador.focus()
+        found = false
+      }
+      setTimeout(() => (timesCtrlClicked = 0), 200)
+    }
+    if (event.key === "ArrowUp") {
+      //window.scrollBy(0, -50);
+      gsap.to(window, { scrollTo: { y: "-=50" } })
+    }
+    if (event.key === "ArrowDown") {
+      //window.scrollBy(0, 50);
+      gsap.to(window, { scrollTo: { y: "+=50" } })
+    }
+  }
+
+  let timesCtrlClicked = 0
+  document.addEventListener("keyup", doubleControlEvent, true)
+</script>
+
+</html>
